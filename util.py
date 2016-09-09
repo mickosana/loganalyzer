@@ -65,6 +65,18 @@ class Util:
                 jsonfile.close()
             except IOError:
                 logging.error("there was an error somewhere dummy")
+    def progressCalculator(self, load, counter=1):
+
+        for item in load :
+            progress=((counter/len(load)*100))
+            print("{0}% done...\n".format(int(progress)))
+            counter+=1
+
+
+
+
+
+
 
 
 

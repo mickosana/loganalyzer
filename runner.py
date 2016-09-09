@@ -5,13 +5,5 @@ class Runner:
         ut=Util()
         ut.fileCamel()
 
-
-
-
-
-
-
-
-
 if __name__== "__main__":
     Runner().run()
