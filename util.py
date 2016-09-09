@@ -1,6 +1,7 @@
 from models import Company
 import os, sys ,glob
 import logging
+import time
 class Util:
     '''this is the class responsible for all the donkey work and lifting the load'''
     def __init__(self ):
@@ -42,6 +43,9 @@ class Util:
         after that it then  appends the name of the file to the path and reads it
         '''
         files=self.filelister()
+        counter=1;
+        print("There are {0} files to be processed..".format(len(files)))
+
         '''try and  create the directory to store the json file make sure it doesnt exist'''
         jsondirpath = '{0}jsonfiles'.format(self.filepath)
         logging.info("json path set to {0}".format(jsondirpath))
@@ -57,20 +61,32 @@ class Util:
             '''read the log file and write the text to a json file'''
             try:
 
-                logging.info("reading file {0}".format(filename))
+                #print("reading file {0}\n".format(filename))
                 logdata=self.extractLog(file)
+
                 jsonfile = open('{0}/{1}.json'.format(jsondirpath, filename), 'w+')
                 logging.info("writing data to {0}".format(jsonfile.name))
                 jsonfile.writelines(logdata)
-                jsonfile.close()
+                self.progressCalculator(files, counter)
             except IOError:
-                logging.error("there was an error somewhere dummy")
-    def progressCalculator(self, load, counter=1):
+                logging.error("there was an error somewhere dummy\n")
+            finally:
 
-        for item in load :
-            progress=((counter/len(load)*100))
-            print("{0}% done...\n".format(int(progress)))
-            counter+=1
+                counter+= 1
+    def progressCalculator(self, load,counter):
+             '''this is out progress method to be called whever we need to show a bit progress to the user'''
+             progress=((counter/len(load))*100)
+             if progress != 100:
+
+                 print("Overrall progress...{0}%".format(progress))
+                 sys.stdout.write("\033[F")  # Cursor up one line
+                 time.sleep(1)
+
+
+             else:
+                 print("DONE...:)")
+
+
 
 
 
