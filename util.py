@@ -6,7 +6,7 @@ import time
 class Util:
     '''this is the class responsible for all the donkey work and lifting the load'''
     def __init__(self ):
-        self.filepath = '/home/micthaworm/Documents/statsCalculations/'
+        self.filepath = '/home/micthaworm/Documents/statsCalculations'
         self.filename=''
         self.filelist=[]
         self.companies=[]#list of all companies that will be converted to json
@@ -36,10 +36,10 @@ class Util:
         pathparts=filepath.split('/')
         self.filename=pathparts[-1]
         return self.filename
-    def filelister(self):
+    def filelister(self,path):
         '''it searched through all the files in the directory  and list then one by one'''
 
-        files=glob.glob(os.path.join(self.filepath, '*'))
+        files=glob.glob(os.path.join(path, '*'))
         for file in files:
             logging.info("*###listing files###")
             print(file)
@@ -50,7 +50,7 @@ class Util:
         it then takes the filenames in the directory object strips away the filename and create a json file with the same name
         after that it then  appends the name of the file to the path and reads it
         '''
-        files=self.filelister()
+        files=self.filelister(self.filepath)
         counter=1;
         print("There are {0} files to be processed..".format(len(files)))
 
@@ -104,61 +104,67 @@ class Util:
         ''''this is the slave method for xtracting json objects into company information to be used
           for stats calculation
         '''
+        files=self.filelister(self.jsondirpath)
 
-        counter = 1
-        jsonfile= open(os.path.join(self.jsondirpath + '/request.log.2016-08-13.json'), 'r')
-        jsonlines=jsonfile.readlines()
-        '''this results in a string collections of all object lines in the file making it easy for us to look through the linees and convert then to objects we can wwork with'''
-        print("there are {0} lines to be processed".format(len(jsonlines)))
-        '''loop through every line and  convert to workable dict'''
+        for file in files:
+            filename = self.getfile(file)
+            print("processing {0}".format(filename))
+            counter = 1
+            jsonfile= open(file, 'r')
+            jsonlines=jsonfile.readlines()
+            '''this results in a string collections of all object lines in the file making it easy for us to look through the linees and convert then to objects we can wwork with'''
+            print("there are {0} lines to be processed".format(len(jsonlines)))
+            '''loop through every line and  convert to workable dict'''
 
-        for jsonline in jsonlines:
-            jsonobj=json.loads(jsonline)
-            co=jsonobj['key']
-            type=jsonobj['type']
-            transa=transaction(type)
-            company=Company(co)
-            company.transactions.append(transa)
+            for jsonline in jsonlines:
+                jsonobj=json.loads(jsonline)
+                co=jsonobj['key']
+                type=jsonobj['type']
+                transa=transaction(type)
+                company=Company(co)
+                company.transactions.append(transa)
 
 
 
-            '''find id the companies array is empty if not look for a match of the company name in the tempobject list
-               if there is an object with tht name traverse find if'''
-            if len(self.companies)==0:
-                self.companies.append(company)
-                self.tempobject[company.name]=company.transactions
-                '''create a company if the companies list is empty'''
-            else:
-               '''in case where the companies list has something in it then check is the company name is in the
-                  the companies list if it does not then do nothing else if it doesnt then add it
-               '''
-               if any(comp for comp in self.companies if comp.name == company.name):
-                   pass
-               else:
-                   self.companies.append(company)
-                   self.tempobject[company.name]=company.transactions
-            '''now that all the companies in the file have been registered then start traversing thtought the transactions
-               if the transaction exists then add the usage if not then add the transaction to the list of transactions of
-               that company'''
-            translist=self.tempobject[company.name]#list of transactions
-            if any(tr for tr in translist if tr.name==transa.name):
-                for i in range(len(translist)):
-                    translist[i].usage+=1
-            else:
-                translist.append(transa)
-        '''this is the part where we take all the values in our temparaay object and store then in the companies list'''
-        for key in self.tempobject:#find all keys
+                '''find id the companies array is empty if not look for a match of the company name in the tempobject list
+                if there is an object with tht name traverse find if'''
+                if len(self.companies)==0:
+                    self.companies.append(company)
+                    self.tempobject[company.name]=company.transactions
+                    '''create a company if the companies list is empty'''
+                else:
+                    '''in case where the companies list has something in it then check is the company name is in the
+                     the companies list if it does not then do nothing else if it doesnt then add it
+                    '''
+                    if any(comp for comp in self.companies if comp.name == company.name):
+                       pass
+                    else:
+                       self.companies.append(company)
+                       self.tempobject[company.name]=company.transactions
+                ''''now that all the companies in the file have been registered then start traversing thtought the transactions
+                if the transaction exists then add the usage if not then add the transaction to the list of transactions of
+                that company'''
+                translist=self.tempobject[company.name]#list of transactions
+                if any(tr for tr in translist if tr.name==transa.name):
+                    for i in range(len(translist)):
+                        translist[i].usage+=1
+                else:
+                    translist.append(transa)
+            '''this is the part where we take all the values in our temparaay object and store then in the companies list'''
+            for key in self.tempobject:#find all keys
                 for i in range(len(self.companies)):
                     '''looop through the company list and add the transactions from the transactions llist'''
                     if self.companies[i].name==key:
                         self.companies[i].transactions=self.tempobject[key]
                     else:
                         pass
-        '''write the companies to a json file'''
-        f=open('./file.json','w+')
-        jsonstring=json.dumps(self.companies,default=self.obj_dict)
-        f.write(jsonstring)
+            '''write the companies to a json file'''
 
+            f=open(os.path.join(filename),'w+')
+            jsonstring=json.dumps(self.companies,default=self.obj_dict)
+            f.write(jsonstring)
+if __name__=='__main__':
+    Util().jsonFileReader()
 
 
 
