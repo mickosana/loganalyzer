@@ -1,16 +1,15 @@
 from models import Company,transaction
 import os, sys ,glob ,json
-from decimal import *
 import logging
 import time
 class Util:
     '''this is the class responsible for all the donkey work and lifting the load'''
     def __init__(self ):
-        self.filepath = '/home/micthaworm/Documents/statsCalculations'
+        self.filepath = '/home/micthaworm/Documents/statsCalculations/'
         self.filename=''
         self.filelist=[]
         self.companies=[]#list of all companies that will be converted to json
-        self.jsondirpath=os.path.join(self.filepath + '/jsonfiles')
+        self.jsondirpath=os.path.join(self.filepath)
         self.tempobject={} #store the transactions temporarily
 
 
@@ -44,46 +43,15 @@ class Util:
             logging.info("*###listing files###")
             print(file)
         return files
-    def fileCamel(self):
-        '''responsible for looping through all the files and doing the work that has to be done
-        loop through every file and create a json file with the name
-        it then takes the filenames in the directory object strips away the filename and create a json file with the same name
-        after that it then  appends the name of the file to the path and reads it
-        '''
-        files=self.filelister(self.filepath)
-        counter=1;
-        print("There are {0} files to be processed..".format(len(files)))
 
-        '''try and  create the directory to store the json file make sure it doesnt exist'''
-        self.jsondirpath = '{0}jsonfiles'.format(self.filepath)
-        logging.info("json path set to {0}".format(self.jsondirpath))
-        try:
-            os.mkdir(self.jsondirpath)
-            print("directory created at path")
-        except OSError:
-            logging.warning("json file was found ...continuing")
-            pass
-        for file in files :
-            filename=self.getfile(file)
-
-            '''read the log file and write the text to a json file'''
-            try:
-
-                #print("reading file {0}\n".format(filename))
-                logdata=self.extractLog(file)
-                jsonfile = open('{0}/{1}.json'.format(self.jsondirpath, filename), 'w+')
-                logging.info("writing data to {0}".format(jsonfile.name))
-                jsonfile.writelines(logdata)
-                self.progressCalculator(files, counter)
-                jsonfile.close()
-
-            except IOError:
-                logging.error("there was an error somewhere dummy\n")
-            finally:
-
-                counter+= 1
     def obj_dict(self,obj):
         return obj.__dict__
+    def fileconverter(self):
+        files=self.filelister(self.filepath)
+        for file in files:
+            os.rename(file,os.path.join("{0}.json".format(file)))
+
+
 
     def progressCalculator(self, load,counter):
              '''this is out progress method to be called whever we need to show a bit progress to the user'''
@@ -94,8 +62,6 @@ class Util:
                  print( "converting files...{0}%".format(int(progress)))
                  sys.stdout.write("\033[F")  # Cursor up one line
                  time.sleep(1)
-
-
              else:
                  print("DONE...:)")
                  sys.stdout.write("\033[F")  # Cursor up one line# #
@@ -163,6 +129,7 @@ class Util:
             f=open(os.path.join(filename),'w+')
             jsonstring=json.dumps(self.companies,default=self.obj_dict)
             f.write(jsonstring)
+
 if __name__=='__main__':
     Util().jsonFileReader()
 
