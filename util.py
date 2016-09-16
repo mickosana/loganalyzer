@@ -111,7 +111,7 @@ class Util:
                 if the transaction exists then add the usage if not then add the transaction to the list of transactions of
                 that company'''
                 translist=self.tempobject[company.name]#list of transactions
-                if any(tr for tr in translist if tr.name==transa.name):
+                if any(tr for tr in translist if tr.type==transa.type):
                     for i in range(len(translist)):
                         translist[i].usage+=1
                 else:
@@ -126,12 +126,9 @@ class Util:
                         pass
             '''write the companies to a json file'''
 
-            f=open(os.path.join(filename),'w+')
-            jsonstring=json.dumps(self.companies,default=self.obj_dict)
-            f.write(jsonstring)
-
-if __name__=='__main__':
-    Util().jsonFileReader()
+        f=open('report.json','w+')
+        jsonstring=json.dumps(self.companies,default=self.obj_dict)
+        f.write(jsonstring)
 
 
 
