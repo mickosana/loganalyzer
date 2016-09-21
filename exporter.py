@@ -41,7 +41,6 @@ class exporter(object):
             self.dataframes[i].to_excel(writer, sheet_name=self.names[i])
 
             worksheet=writer.sheets[self.names[i]]
-            worksheet.write('A1','key')
             chart=workbook.add_chart({'type':'column'})
             chart.add_series({'values':'={0}!$D$2:$D$12'.format(self.names[i]),
                               'categories':[self.names[i],1,2,13,2],
