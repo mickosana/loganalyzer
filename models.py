@@ -1,18 +1,12 @@
 class Company(object):
 
 
-    def __init__(self,name):
+    def __init__(self,key):
         '''create a new company object from the extracted text'''
-        self.name=name
+        self.name=''
         self.transactions=[]
-
-
-
-
-
-
-
-
+        self.key=key
+        self.date=''
 
 class transaction:
     '''a small class to simply calculation of usage and representation of a transaction'''
