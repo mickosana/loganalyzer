@@ -1,0 +1,29 @@
+{"22111111111111111111111111111122":{"id": 7,"userId": 7,"name": "apidev","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "22111111111111111111111111111122","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"803930aad481baddaf794dcc2ec66b1f":{"id": 8,"userId": 8,"name": "pingdom","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "803930aad481baddaf794dcc2ec66b1f","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"2014feb2809h32amf794dcc803930aad":{"id": 9,"userId": 9,"name": "trackmatic","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "2014feb2809h32amf794dcc803930aad","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "CLOSED","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"20140307c66b1f803930aad00008":{"id": 10,"userId": 10,"name": "instantmoney","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "20140307c66b1f803930aad00008","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "CLOSED","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"20140307c66b1f803930aad00009":{"id": 11,"userId": 11,"name": "oasiswater","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "20140307c66b1f803930aad00009","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "CLOSED","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"20140307c66b1f803930aad00011":{"id": 12,"userId": 12,"name": "sanbs","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "20140307c66b1f803930aad00011","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"212e272e914cf45f44795845489b97a3":{"id": 13,"userId": 13,"name": "assist247","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "212e272e914cf45f44795845489b97a3","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"04track12netics2015":{"id": 14,"userId": 14,"name": "tracknetics","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "04track12netics2015","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"c29c34a7b549e8cf6ca33c9d07b5653d":{"id": 15,"userId": 15,"name": "neotrac","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "c29c34a7b549e8cf6ca33c9d07b5653d","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"w9jx4npugjty68mukzejyw2kn5fjb7mr":{"id": 16,"userId": 16,"name": "riskscape","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "w9jx4npugjty68mukzejyw2kn5fjb7mr","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "CLOSED","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"fj8b0f92qpdlwqcr96ry5ul1pedp31bf":{"id": 17,"userId": 17,"name": "paulstenyfoundation","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "fj8b0f92qpdlwqcr96ry5ul1pedp31bf","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"fpOgtLY1ZF22m3va4FLkU52tsLmpaNyo":{"id": 18,"userId": 18,"name": "MCDeliveryZones","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "fpOgtLY1ZF22m3va4FLkU52tsLmpaNyo","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"CxIQlYBhwykcIxtYwrrbltCDiJ4xUxfN":{"id": 19,"userId": 19,"name": "SanlamCTMarathon2016","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "CxIQlYBhwykcIxtYwrrbltCDiJ4xUxfN","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"5JNp18qL8TR2KF7J05J3cv6sD7MkUYxi":{"id": 20,"userId": 20,"name": "MediClinic","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "5JNp18qL8TR2KF7J05J3cv6sD7MkUYxi","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]
+},
+"ICcvpp7SECoWcbu73i1gDXOE3i5mptRK":{"id": 21,"userId": 21,"name": "SANBS_temp","appMode":1,"satellite_key":"","satellite_key_provider": "dg","key": "ICcvpp7SECoWcbu73i1gDXOE3i5mptRK","limits": [{"timeInterval": 1,"requestLimit":1000000},{"timeInterval":1,"requestLimit": 1000000}],"acls": {"1": {"id": "1","appId": "1","type": "OPEN","value": ""}},"weights": [{"requestType": "*","weight": 1}]}}
