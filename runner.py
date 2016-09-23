@@ -1,38 +1,44 @@
 from util import Util
 from exporter import exporter
-import time
+import time,json
 class Runner:
-
+    def __init__(self):
+        self.logpath='',
+        self.keypath=''
     def run(self):
 
+            try:
+                self.start=time.clock()
+                self.pathfinder()
+                ut=Util(self.keypath)
+                ut.keyreader(self.logpath)
+                ut.getfile()
+                ut.dateextractor()
+                ut.fileconverter()
+                ut.jsonFileReader()
+                exp = exporter()
+                exp.excelExporter()
+                ut.cleanup()
+                self.profileit()
+            except Exception:
+                print(Exception)
+            finally:
+                ut.cleanup()
 
-            self.start=time.clock()
-            path=self.menu()
-            ut=Util(path)
-            ut.keyreader()
-            ut.getfile()
-            ut.dateextractor()
-            ut.fileconverter()
-            ut.jsonFileReader()
-            exp = exporter()
-            exp.excelExporter()
-            ut.cleanup()
-            self.profileit()
 
 
 
 
 
     def profileit(self):
-        print(time.clock()-self.start)
-    def menu(self):
-        print("#########################################\n"
-              "#                                        #\n"
-              "# STATS REPORTER                        #\n"
-              "#                                        #\n"
-              "##########################################\n")
-        path= input("enter the path to the log files:")
-        return path
+        print("job done in {0}".format(time.clock()-self.start))
+    def pathfinder(self):
+        with open('config.json','r') as configfile:
+            config=json.load(configfile)
+            self.keypath=config['logpath']
+            self.logpath=config['keypath']
+
+
 
 
 
