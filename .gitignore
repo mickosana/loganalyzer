@@ -1,5 +1,4 @@
 .idea/**
 __/pycache__/**
 *.pyc
-*.json
 *.xlsx

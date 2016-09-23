@@ -5,6 +5,8 @@ class exporter(object):
         self.dataframes = []
         self.names=[]
         self.date=''
+        self.tempnames=[]
+
 
 
 
@@ -19,7 +21,7 @@ class exporter(object):
                 key=i['key']
                 self.date=i['date']
                 self.names.append(idx)
-                dataf=pd.DataFrame(trans,columns=[idx,'type','usage',key])
+                dataf=pd.DataFrame(trans)
                 dataf.index+=1
                 dataf.set_index(key,inplace=True)
 
@@ -35,7 +37,7 @@ class exporter(object):
         for i in range(len(self.dataframes)):
 
             counter+=1
-            # Convert the dataframe to an XlsxWriter Excel object.
+            # Conve rt the dataframe to an XlsxWriter Excel object.
 
 
             self.dataframes[i].to_excel(writer, sheet_name=self.names[i])
