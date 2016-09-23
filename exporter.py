@@ -9,6 +9,7 @@ class exporter(object):
 
 
 
+
     def excelExporter(self):
 
         with open('report.json') as f:
@@ -20,7 +21,7 @@ class exporter(object):
                 key=i['key']
                 self.date=i['date']
                 self.names.append(idx)
-                dataf=pd.DataFrame(trans,columns=[idx,'Requesttype','usage',key])
+                dataf=pd.DataFrame(trans)
                 dataf.index+=1
                 dataf.set_index(key,inplace=True)
 
