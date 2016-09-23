@@ -1,6 +1,6 @@
 from models import Company,transaction
 import os, sys ,glob ,json
-import logging
+
 import time
 import ijson
 class Util:
@@ -14,6 +14,7 @@ class Util:
         self.tempobject={} #store the transactions temporarily
         self.obj={}
         self.date=''
+        self.names=[]
 
 
 
