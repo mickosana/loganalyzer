@@ -54,13 +54,13 @@ class Util:
                 pass
 
 
-    def progressCalculator(self, load,counter):
+    def progressCalculator(self, load,counter,message):
              '''this is out progress method to be called whever we need to show a bit progress to the user'''
 
              progress=((counter/len(load))*100)
              if progress != 100:
 
-                 print( "converting files...{0}%".format(int(progress)))
+                 print( "{0}...{1}%".format(message,int(progress)))
                  sys.stdout.write("\033[F")  # Cursor up one line
                  time.sleep(1)
              else:
@@ -72,14 +72,16 @@ class Util:
           for stats calculation
         '''
         files=self.filelister(self.jsondirpath)
-
+        counter=0
+        message="analyzing data"
         for file in files:
 
             jsonfile= open(file, 'r')
             jsonlines=jsonfile.readlines()
+
             '''this results in a string collections of all object lines in the file making it easy for us to look through the linees and convert then to objects we can wwork with'''
-            print("there are {0} lines to be processed".format(len(jsonlines)))
-            '''loop through every line and  convert to workable dict'''
+
+            print("working on file {0} \n".format(file))
 
             for jsonline in jsonlines:
                 jsonobj=json.loads(jsonline)
@@ -125,21 +127,23 @@ class Util:
                         self.companies[i].transactions=self.tempobject[key]
                     else:
                         pass
+            self.progressCalculator(files,counter,message)
+            counter+=1
             ''''''
             '''write the companies to a json file'''
 
         f=open('report.json','w+')
         jsonstring=json.dumps(self.companies,default=self.obj_dict)
         f.write(jsonstring)
-    def keyreader(self):
+    def keyreader(self,path):
 
-        with open(('keys.json')) as f:
+        with open(os.path.join('{0}/keys.json').format(path)) as f:
             data=ijson.items(f,'')
             for obj in data:
               keys=list(obj.keys())
               for key in keys:
                   self.obj[key]=obj[key]['name']
-        print(self.obj)
+        #print(self.obj)
     '''this is the function that will take the date from the files extension'''
     def dateextractor(self):
         filename=self.filename
