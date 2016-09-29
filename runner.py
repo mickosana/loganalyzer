@@ -5,24 +5,19 @@ class Runner:
     def __init__(self):
         self.logpath='',
         self.keypath=''
+        self.date=''
     def run(self):
 
-            try:
+
                 self.start=time.clock()
-                self.pathfinder()
-                ut=Util(self.keypath)
+                self.configurator()
+                ut=Util(self.keypath,self.date)
                 ut.keyreader(self.logpath)
-                ut.getfile()
-                ut.dateextractor()
                 ut.fileconverter()
                 ut.jsonFileReader()
-                exp = exporter()
+                exp = exporter(self.date)
                 exp.excelExporter()
-                ut.cleanup()
                 self.profileit()
-            except Exception:
-                print(Exception)
-            finally:
                 ut.cleanup()
 
 
@@ -32,11 +27,13 @@ class Runner:
 
     def profileit(self):
         print("job done in {0}".format(time.clock()-self.start))
-    def pathfinder(self):
+    def configurator(self):
         with open('config.json','r') as configfile:
             config=json.load(configfile)
             self.keypath=config['logpath']
             self.logpath=config['keypath']
+            self.date=config['date']
+
 
 
 
