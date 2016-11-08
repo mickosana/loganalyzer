@@ -5,7 +5,7 @@ import time,ijson
 class Util:
     '''this is the class responsible for all the donkey work and lifting the load'''
     def __init__(self ,path,date):
-        self.filepath = path#'/home/micthaworm/Documents/statsCalculations'
+        self.filepath = path
         self.filename=''
         self.filelist=[]
         self.companies=[]#list of all companies that will be converted to json
@@ -14,7 +14,7 @@ class Util:
         self.obj={}
         self.names=[]
         self.date=date
-        self.pattern='^request\.log\.({0})'.format(self.date) #patten used throughout for filtering by date
+        self.pattern='^request\.log\.({0})'.format(self.date) #pattern used throughout for filtering by date
 
 
 
@@ -100,7 +100,7 @@ class Util:
 
 
 
-                    '''find id the companies array is empty if not look for a match of the company name in the tempobject list
+                    '''find if the companies array is empty if not look for a match of the company name in the tempobject list
                     if there is an object with tht name traverse find if'''
                     if len(self.companies)==0:
                         self.companies.append(company)
@@ -122,6 +122,8 @@ class Util:
                     if any(tr for tr in translist if tr.type==transa.type):
                         for i in range(len(translist)):
                             translist[i].usage+=1
+                            print("usage for {0} is now {1}".format(translist[i].type, translist[i].usage))
+
                     else:
                         translist.append(transa)
                 '''this is the part where we take all the values in our temparaay object and store then in the companies list'''
