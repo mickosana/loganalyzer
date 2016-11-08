@@ -1,0 +1,12 @@
+
+1.install virtual environment on your machine run sudo apt-get install python-virtualenv
+
+2.virtualenv --version to verify the virtualenv tool is installed
+
+3.virtualenv venv to createa new virtual environment
+
+4.source venv/bin/activate to activate the virtualenv
+
+5.to install package for the project run pip install -r requirements.txt
+
+6.run python3 runner.py
