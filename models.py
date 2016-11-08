@@ -12,7 +12,7 @@ class transaction:
     '''a small class to simply calculation of usage and representation of a transaction'''
     def __init__(self,name):
         self.type=name
-        self.usage=1
+        self.usage=0
 
 
     def addusage(self):
