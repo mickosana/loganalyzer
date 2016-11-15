@@ -102,19 +102,15 @@ class Util:
 
                     '''find if the companies array is empty if not look for a match of the company name in the tempobject list
                     if there is an object with tht name traverse find if'''
-                    if len(self.companies)==0:
+                    if (len(self.companies)==0) | (company.key not in self.tempobject):
                         self.companies.append(company)
                         self.tempobject[company.key]=company.transactions
                         '''create a company if the companies list is empty'''
-                    else:
+
                         '''in case where the companies list has something in it then check is the company name is in the
                         the companies list if it does not then do nothing else if it doesnt then add it
                         '''
-                        if any(comp for comp in self.companies if comp.key == company.key):
-                            pass
-                        else:
-                            self.companies.append(company)
-                            self.tempobject[company.key]=company.transactions
+
                     ''''now that all the companies in the file have been registered then start traversing thought the transactions
                     if the transaction exists then add the usage if not then add the transaction to the list of transactions of
                     that company'''
@@ -122,7 +118,7 @@ class Util:
                     if any(tr for tr in translist if tr.type==transa.type):
                         for i in range(len(translist)):
                             translist[i].usage+=1
-                            print("usage for {0} is now {1}".format(translist[i].type, translist[i].usage))
+
 
                     else:
                         translist.append(transa)
