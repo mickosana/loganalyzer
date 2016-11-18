@@ -86,6 +86,7 @@ class Util:
                 '''this results in a string collections of all object lines in the file making it easy for us to look through the linees and convert then to objects we can wwork with'''
 
                 print("working on file {0} \n".format(file))
+
                 with open(file,'r')as jsonfile:
                     jsonlines=(json.loads(line) for line in jsonfile)
                     for row in jsonlines:
@@ -110,6 +111,8 @@ class Util:
                             pass
                         else:
                             translist.append(transa)
+
+
 
                 for key in self.tempobject:#find all keys.json
                      for i in range(len(self.companies)):
