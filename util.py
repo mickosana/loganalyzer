@@ -1,7 +1,7 @@
 from models import Company,transaction
 import os, sys ,glob ,json,re
 import time,ijson
-
+from collections import Counter
 class Util:
     '''this is the class responsible for all the donkey work and lifting the load'''
     def __init__(self ,path,date):
@@ -31,9 +31,7 @@ class Util:
         '''it searched through all the files in the directory  and list then one by one'''
 
         files=glob.glob(os.path.join(path, '*'))
-        #for file in files:
-           # logging.info("*###listing files###")
-            #print(file)
+
         return files
 
     def obj_dict(self,obj):
@@ -79,62 +77,52 @@ class Util:
         files=self.filelister(self.jsondirpath)
         counter=0
         message="analyzing data"
+        count=Counter()
         for file in files:
             filename=self.getfile(file)
             match=re.match(self.pattern,filename) # check first if the file is a request file for the date stated
             if match!=None:
-                jsonfile= open(file, 'r')
-                jsonlines=jsonfile.readlines()
 
                 '''this results in a string collections of all object lines in the file making it easy for us to look through the linees and convert then to objects we can wwork with'''
 
                 print("working on file {0} \n".format(file))
-
-                for jsonline in jsonlines:
-                    jsonobj=json.loads(jsonline)
-                    co=jsonobj['key']
-                    type=jsonobj['type']
-                    transa=transaction(type)
-                    company=Company(co)
-                    company.transactions.append(transa)
-
-
-
-                    '''find if the companies array is empty if not look for a match of the company name in the tempobject list
-                    if there is an object with tht name traverse find if'''
-                    if len(self.companies)==0:
-                        self.companies.append(company)
-                        self.tempobject[company.key]=company.transactions
-                        '''create a company if the companies list is empty'''
-                    else:
-                        '''in case where the companies list has something in it then check is the company name is in the
-                        the companies list if it does not then do nothing else if it doesnt then add it
-                        '''
-                        if any(comp for comp in self.companies if comp.key == company.key):
+                with open(file,'r')as jsonfile:
+                    jsonlines=(json.loads(line) for line in jsonfile)
+                    for row in jsonlines:
+                        key=row['key']
+                        type=row['type']
+                        co=Company(key)
+                        count[key,type]+=1
+                        transa=transaction(key)
+                        transa.type=type
+                        co.transactions.append(transa)
+                        if self.companies==0:
+                            self.companies.append(co)
+                            self.tempobject[co.key]
+                        else:
+                            if any(comp for comp in self.companies if comp.key ==co.key):
+                                pass
+                            else:
+                                self.companies.append(co)
+                                self.tempobject[co.key]=co.transactions
+                        translist=self.tempobject[co.key]
+                        if any(tr for tr in translist if tr.type == transa.type):
                             pass
                         else:
-                            self.companies.append(company)
-                            self.tempobject[company.key]=company.transactions
-                    ''''now that all the companies in the file have been registered then start traversing thought the transactions
-                    if the transaction exists then add the usage if not then add the transaction to the list of transactions of
-                    that company'''
-                    translist=self.tempobject[company.key]#list of transactions
-                    if any(tr for tr in translist if tr.type==transa.type):
-                        for i in range(len(translist)):
-                            translist[i].usage+=1
-                            print("usage for {0} is now {1}".format(translist[i].type, translist[i].usage))
+                            translist.append(transa)
 
-                    else:
-                        translist.append(transa)
-                '''this is the part where we take all the values in our temparaay object and store then in the companies list'''
                 for key in self.tempobject:#find all keys.json
-                    for i in range(len(self.companies)):
-                        '''looop through the company list and add the transactions from the transactions llist'''
-                        if self.companies[i].key==key:
-                            self.companies[i].name=self.obj[key]
-                            self.companies[i].transactions=self.tempobject[key]
-                        else:
-                            pass
+                     for i in range(len(self.companies)):
+                         '''looop through the company list and add the transactions from the transactions llist'''
+                         if self.companies[i].key==key:
+                             self.companies[i].name=self.obj[key]
+                             self.companies[i].transactions=self.tempobject[key]
+                             transactions=self.companies[i].transactions
+                             for j in range(len(transactions)):
+                                 transactions[j].usage=count[(key,transactions[j].type)]
+
+                         else:
+                             pass
             self.progressCalculator(files,counter,message)
             counter+=1
             ''''''
@@ -151,8 +139,7 @@ class Util:
               keys=list(obj.keys())
               for key in keys:
                   self.obj[key]=obj[key]['name']
-        #print(self.obj)
-    '''this is the function that will take the date from the files extension'''
+
 
 
 
