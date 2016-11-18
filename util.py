@@ -86,30 +86,7 @@ class Util:
                 '''this results in a string collections of all object lines in the file making it easy for us to look through the linees and convert then to objects we can wwork with'''
 
                 print("working on file {0} \n".format(file))
-                with open(file,'r')as jsonfile:
-                    jsonlines=(json.loads(line) for line in jsonfile)
-                    for row in jsonlines:
-                        key=row['key']
-                        type=row['type']
-                        co=Company(key)
-                        count[key,type]+=1
-                        transa=transaction(key)
-                        transa.type=type
-                        co.transactions.append(transa)
-                        if self.companies==0:
-                            self.companies.append(co)
-                            self.tempobject[co.key]
-                        else:
-                            if any(comp for comp in self.companies if comp.key ==co.key):
-                                pass
-                            else:
-                                self.companies.append(co)
-                                self.tempobject[co.key]=co.transactions
-                        translist=self.tempobject[co.key]
-                        if any(tr for tr in translist if tr.type == transa.type):
-                            pass
-                        else:
-                            translist.append(transa)
+               
 
                 for key in self.tempobject:#find all keys.json
                      for i in range(len(self.companies)):
