@@ -30,20 +30,25 @@ class Util:
     def filelister(self,path):
         '''it searched through all the files in the directory  and list then one by one'''
 
-        files=glob.glob(os.path.join(path, '*'))
+        files=glob.glob(os.path.join(path,"*"))
+        filteredfiles=[]
+        for f in files:
+            file=self.getfile(f)
+            match = re.match(self.pattern,file)
+            if match!=None:
+                filteredfiles.append(os.path.join(self.filepath,file))
+            else:
+                pass
 
-        return files
+
+        return filteredfiles
 
     def obj_dict(self,obj):
         return obj.__dict__
     def fileconverter(self):
         files=self.filelister(self.filepath)
         for file in files:
-            filename = self.getfile(file)
-
-            match=re.match(self.pattern,filename)
-            if match!=None:
-                os.rename(file,os.path.join("{0}.json".format(file)))
+            os.rename(file,os.path.join("{0}.json".format(file)))
 
     def cleanup(self):
         files=self.filelister((self.filepath))
@@ -85,7 +90,7 @@ class Util:
 
                 '''this results in a string collections of all object lines in the file making it easy for us to look through the linees and convert then to objects we can wwork with'''
 
-                print("working on file {0} \n".format(file))
+                print("working on files {0} of {1}:{2}) \n".format(counter+1,len(files),file))
 
                 with open(file,'r')as jsonfile:
                     jsonlines=(json.loads(line) for line in jsonfile)
@@ -122,7 +127,11 @@ class Util:
                              self.companies[i].transactions=self.tempobject[key]
                              transactions=self.companies[i].transactions
                              for j in range(len(transactions)):
-                                 transactions[j].usage=count[(key,transactions[j].type)]
+                                 if transactions[j].type== 'TILE':
+                                    transactions[j].usage=int((count[(key,transactions[j].type)])/32)
+                                 else:
+                                     transactions[j].usage = (count[(key, transactions[j].type)])
+
 
                          else:
                              pass
