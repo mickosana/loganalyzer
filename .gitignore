@@ -4,3 +4,4 @@ __/pycache__/**
 *.xlsx
 report.json
 *.log
+/venv/**
