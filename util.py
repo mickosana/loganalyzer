@@ -90,6 +90,7 @@ class Util:
 
                 '''this results in a string collections of all object lines in the file making it easy for us to look through the linees and convert then to objects we can wwork with'''
 
+<<<<<<< HEAD
                 print("working on files {0} of {1}:{2}) \n".format(counter+1,len(files),file))
 
                 with open(file,'r')as jsonfile:
