@@ -20,23 +20,24 @@ class Runner:
 
     def run(self):
         self.logger.log(logging.INFO,"##STARTING SESSION##")
-        try:
+        for date in self.date:
+            try:
 
-            self.start=time.clock()
-            self.configurator()
-            ut=Util(self.keypath,self.date)
-            ut.keyreader(self.logpath)
-            ut.fileconverter()
-            ut.jsonFileReader()
-            exp = exporter(self.date)
-            exp.excelExporter()
-            self.profileit()
+                self.start=time.clock()
+                self.configurator()
+                ut=Util(self.keypath,date)
+                ut.keyreader(self.logpath)
+                ut.fileconverter()
+                ut.jsonFileReader()
+                exp = exporter(date)
+                exp.excelExporter()
+                self.profileit()
 
-        except KeyboardInterrupt as e:
-            self.logger.error("oops program interrupted ..exiting",str(e))
-        finally:
-            ut.cleanup()
-            self.logger.log(logging.INFO,"##EXITING##")
+            except KeyboardInterrupt as e:
+                self.logger.error("oops program interrupted ..exiting",str(e))
+            finally:
+                ut.cleanup()
+                self.logger.log(logging.INFO,"##EXITING##")
 
 
 
