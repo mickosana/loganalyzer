@@ -7,11 +7,11 @@ class Util:
     def __init__(self ,path,date):
         self.filepath = path
         self.filename=''
-        self.filelist=[]
+        self.filelist=[]##list of all the log files to be used
         self.companies=[]#list of all companies that will be converted to json
         self.jsondirpath=os.path.join(self.filepath)
         self.tempobject={} #store the transactions temporarily
-        self.obj={}
+        self.obj={}#an object that is going to represent a key value pair for the key and name of company  that key belongs to
         self.names=[]
         self.date=date
         self.pattern='^request\.log\.({0})'.format(self.date) #pattern used throughout for filtering by date
@@ -30,7 +30,7 @@ class Util:
     def filelister(self,path):
         '''it searched through all the files in the directory  and list then one by one'''
 
-        files=glob.glob(os.path.join(path,"*"))
+        files=glob.glob(os.path.join(path,"*"))##find another way if possible
         filteredfiles=[]
         for f in files:
             file=self.getfile(f)
@@ -45,12 +45,14 @@ class Util:
 
     def obj_dict(self,obj):
         return obj.__dict__
+    ##convert the file to json
     def fileconverter(self):
         files=self.filelister(self.filepath)
         for file in files:
             os.rename(file,os.path.join("{0}.json".format(file)))
 
     def cleanup(self):
+        ##remove the json extension of log files
         files=self.filelister((self.filepath))
         for file in files:
             ext=file.split('.')[-1]
@@ -63,7 +65,7 @@ class Util:
 
 
     def progressCalculator(self, load,counter,message):
-             '''this is out progress method to be called whever we need to show a bit progress to the user'''
+             '''this is our progress method to be called whenver we need to show a bit progress to the user'''
 
              progress=((counter/len(load))*100)
              if progress != 100:
@@ -145,7 +147,7 @@ class Util:
         jsonstring=json.dumps(self.companies,default=self.obj_dict)
         f.write(jsonstring)
     def keyreader(self,path):
-
+##read all the keys in the keys.json file
         with open(os.path.join('{0}/keys.json').format(path)) as f:
             data=ijson.items(f,'')
             for obj in data:

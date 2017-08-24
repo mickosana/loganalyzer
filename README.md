@@ -19,7 +19,7 @@ that have been written for the project by running :
 **date attritube is the filter for the log files of a specific month you want a report on make sure you change this part each time you want a different
 **month or year
 ##**NB** the date should be in the format yyyy-mm##
-**the excel sheet will be negerated into the project folder you can take it form there
+**the excel sheet will be generated into the project folder you can take it form there
 * make sure you have python installed on your system 
 * run python runner.py to run the project
 

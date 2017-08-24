@@ -3,7 +3,7 @@ import ijson
 class exporter(object):
     def __init__(self,date):
         self.dataframes = []
-        self.names=[]
+        self.names=[]##names for all the work sheets one by one
         self.date=date
         self.tempnames=[]
         self.totalRequests=[]
@@ -44,9 +44,11 @@ class exporter(object):
         #Create a Pandas Excel writer using XlsxWriter as the engine.
         writer = pd.ExcelWriter('{0}.xlsx'.format(self.date) ,engine='xlsxwriter')
         workbook = writer.book
+        #create an exccel sheet that has the summary of all the type of requests
         summaryDataFrame.to_excel(writer,sheet_name='Usage summary')
         sheet=writer.sheets['Usage summary']
-        sheet.write('A18','Total Overaall Requests')
+        ##give title and data for each
+        sheet.write('A18','Total Overall Requests')
         sheet.write_formula('B18','=SUM(B2:B17)')
         for i in range(len(self.dataframes)):
 
@@ -60,9 +62,13 @@ class exporter(object):
             chart=workbook.add_chart({'type':'column'})
             chart.add_series({'values':'={0}!$E$2:$E$12'.format(self.names[i]),
                               'categories':[self.names[i],1,3,13,3],
-                              'name':'={0}!$D1'.format(self.names[i])})
+                              'name':'={0}!$D1'.format(self.names[i])}
+                             )
+            ##draws a chart on the f# collumn of that nth sheet
             worksheet.insert_chart('F3',chart)
+            #set the title of the sheet
             chart.set_title({'name':'={0}!$C$2'.format(self.names[i])})
+            #give the title
             worksheet.write('D15','Total Requests')
             worksheet.write_formula('E15','=SUM(E2:E14)')
 
