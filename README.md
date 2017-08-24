@@ -8,7 +8,7 @@ that have been written for the project by running :
 
 ### **What is this repository for?**###
 
-* This is a small inhouse too for tomtom support team that takes in the a list of log files in a specific folder analyses then then calculate how much each request was used by a specific user 
+* This is a small inhouse tool i cooked up  for an inhouse GIS tool that takes in the a list of log files in a specific folder analyses then then calculate how much each request was used by a specific user 
 * Version v1.0
 
 
