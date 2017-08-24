@@ -32,5 +32,5 @@ that have been written for the project by running :
 
 ### **Who do I talk to?** ###
 
-* contact me at courage.kosana@connetcom.co.za
+* contact me at courage.kosana@gandasoft.com
 * Other community or team contact
